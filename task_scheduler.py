@@ -41,13 +41,14 @@ class TaskScheduler:
                 else:
                     task_set_dict_jobbased[job_belong] = []
                     task_set_dict_jobbased[job_belong].append(task)
-
+       
         if depth_based:
             for job_name in task_set_dict_jobbased.keys():
                 task_list = task_set_dict_jobbased[job_name]
                 task_set_dict_jobbased[job_name] = dict()
                 for task in task_list:
                     depth = task.depth
+                    
                     if depth in task_set_dict_jobbased[job_name]:
                         task_set_dict_jobbased[job_name][depth].append(task)
                     else:
@@ -74,14 +75,15 @@ class TaskScheduler:
         step_all = np.zeros(job_num, dtype=np.int)
         cur_id = 0
         count = 0
-        max_depth = self.max_depth
-        finish = 0
-        while(finish!=job_num):
+        
+        finish = np.zeros(job_num)
+        while(finish.sum()!=job_num):
             for j in range(job_num):
                 job_name = chr(ord('A')+j)
                 job_step = int(step_all[j])
                 if job_step >= len(job_based_task_dict[job_name].keys()):
-                    finish += 1
+                    finish[j] = 1
+                    
                     continue
                 task_list = job_based_task_dict[job_name][job_step]
                 if count + len(task_list) < threshold:
