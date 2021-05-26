@@ -75,7 +75,7 @@ def JobStepBasedBaseline(file_path="../ToyData.xlsx", threshold=5):
         task_set = task_set_new
 
         cur_step += 1
-    #print("placement matrix:\n", placement)
+    
     print("-----Job Step Based Baseline Finish. Final Time:", final_time, '-------')
 
 
