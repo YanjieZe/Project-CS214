@@ -2,6 +2,7 @@ from solver import Solver
 from task_scheduler import TaskScheduler
 from DAG_scheduler import DAGScheduler
 from data_loader import DataLoader
+import numpy as np
 
 def DepthBasedBaseline(file_path="../ToyData.xlsx"):
     """
@@ -36,10 +37,12 @@ def DepthBasedBaseline(file_path="../ToyData.xlsx"):
     
     print("Depth Based Baseline Finish.")
 
+
 def JobStepBasedBaseline(file_path="../ToyData.xlsx", threshold=5):
     """
     Job Step Based Baseline, implemented by Yanjie Ze
     """
+    print('Job Step Based Baseline, threshold = %d '%threshold)
     task_scheduler = TaskScheduler(file_path=file_path, threshold=threshold)
     solver = Solver(file_path=file_path)
     cur_step = 0
@@ -50,11 +53,15 @@ def JobStepBasedBaseline(file_path="../ToyData.xlsx", threshold=5):
     finish_time = None
     task_set = None
     task_set_new = None
+    final_time = 0
     while(cur_step<=max_step):
         if cur_step ==0:
             task_set = task_scheduler.get_taskset_jobbased(cur_step)
             data_center = task_scheduler.get_datacenter()
             placement, finish_time = solver.get_placement(task_set, data_center)
+            time_cost = np.max(finish_time)
+            print("time cost:", time_cost)
+            final_time += time_cost
             cur_step += 1
             continue
 
@@ -62,16 +69,20 @@ def JobStepBasedBaseline(file_path="../ToyData.xlsx", threshold=5):
         new_data_center = solver.update_datacenter(placement, task_set_new, task_set, data_center)
 
         placement, finish_time = solver.get_placement(task_set_new, new_data_center)
-        
+        time_cost = np.max(finish_time)
+        print("time cost:", time_cost)
+        final_time += time_cost
         task_set = task_set_new
 
         cur_step += 1
-    
-    print("Job Step Based Baseline Finish.")
+    #print("placement matrix:\n", placement)
+    print("-----Job Step Based Baseline Finish. Final Time:", final_time, '-------')
 
 
 if __name__=='__main__':
-    print('----------------------------')
-    DepthBasedBaseline()
-    print('----------------------------')
-    JobStepBasedBaseline()
+    # print('----------------------------')
+    # DepthBasedBaseline()
+    # print('----------------------------')
+    JobStepBasedBaseline(threshold=5)
+    JobStepBasedBaseline(threshold=6)
+    
