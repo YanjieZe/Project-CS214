@@ -1,4 +1,3 @@
------Depth Based Baseline Finish. Final Time:22.416667----
 Task tA1, Execution Time 1, need data: ['A1', 'A2']place in DC[4]
 Task tA2, Execution Time 1, need data: ['A1', 'A2']place in DC[1]
 Task tB1, Execution Time 2, need data: ['B1', 'B2']place in DC[1]
@@ -25,3 +24,5 @@ Task tF6, Execution Time 1, need data: ['F1', 'F4', 'tF4']place in DC[9]
 Task tE6, Execution Time 3, need data: ['E1', 'tE3', 'tE5']place in DC[4]
 Task tF7, Execution Time 2, need data: ['F3', 'F5', 'tF5']place in DC[9]
 Task tF8, Execution Time 2, need data: ['F2', 'F5', 'tF5', 'tF6']place in DC[9]
+-----Depth Based Baseline Finish. Final Time:22.416667----
+-----Execution Time of Depth Based Baseline: 0.710887----

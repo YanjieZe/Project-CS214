@@ -4,12 +4,15 @@ from DAG_scheduler import DAGScheduler
 from data_loader import DataLoader
 import numpy as np
 import logging
+import time
+
 
 
 def DepthBasedBaseline(file_path="../ToyData.xlsx"):
     """
     Depth Based Baseline, implemented by Yanjie Ze
     """
+    start_time = time.time()
     task_scheduler = TaskScheduler(file_path=file_path)
     solver = Solver(file_path=file_path)
     cur_depth = 0
@@ -47,17 +50,21 @@ def DepthBasedBaseline(file_path="../ToyData.xlsx"):
         cur_depth += 1
 
     
-    with open('depthbased_baseline.txt', 'w') as f:
-        f.write("-----Depth Based Baseline Finish. Final Time:%f----\n"%final_time)
-    f.close()
     final_placement_show_depthbased(final_placement, task_scheduler)
     print("-----Depth Based Baseline Finish. Final Time:%f----\n"%final_time)
+    end_time = time.time()
+    print("-----Execution Time of Depth Based Baseline:-----",end_time-start_time)
+    with open('depthbased_baseline.txt', 'a') as f:
+        f.write("-----Depth Based Baseline Finish. Final Time:%f----\n"%final_time)
+        f.write("-----Execution Time of Depth Based Baseline: %f----\n"%(end_time-start_time))
+        f.close()
 
 
 def JobStepBasedBaseline(file_path="../ToyData.xlsx", threshold=5):
     """
     Job Step Based Baseline, implemented by Yanjie Ze
     """
+    start_time = time.time()
     print('Job Step Based Baseline, threshold = %d '%threshold)
     task_scheduler = TaskScheduler(file_path=file_path, threshold=threshold)
     solver = Solver(file_path=file_path)
@@ -93,14 +100,19 @@ def JobStepBasedBaseline(file_path="../ToyData.xlsx", threshold=5):
         task_set = task_set_new
         final_placement.append(placement)
         cur_step += 1
-    with open('jobbased_baseline.txt', 'w') as f:
+    with open('jobbased_baseline.txt', 'a') as f:
         f.write("-----Job Step Based Baseline Finish. Final Time:%f----\n"%final_time)
     f.close()
     print("-----Job Step Based Baseline Finish. Final Time:%f----\n"%final_time)
 
     ## show result
     final_placement_show_jobbased(final_placement, task_scheduler)
-
+    end_time = time.time()
+    print("-----Execution Time of Job Based Baseline: %f-------\n"%(end_time-start_time))
+    with open('jobbased_baseline.txt', 'a') as f:
+        f.write("-----Job Step Based Baseline Finish. Final Time:%f----\n"%final_time)
+        f.write("-----Execution Time of Job Based Baseline: %f-------\n"%(end_time-start_time))
+        f.close()
     return final_placement
 
 
@@ -109,7 +121,7 @@ def final_placement_show_jobbased(final_placement, task_scheduler):
     Input: list of several placements in several step
     Output: show the placement
     """
-    f =  open('jobbased_baseline.txt', 'a')
+    f =  open('jobbased_baseline.txt', 'w')
     for i in range(len(final_placement)):
         f.write("Step%d:\n"%i)
         print("Step%d:"%i)
@@ -136,7 +148,7 @@ def final_placement_show_depthbased(final_placement, task_scheduler):
     Input: list of several placements in several step
     Output: show the placement
     """
-    f =  open('depthbased_baseline.txt', 'a')
+    f =  open('depthbased_baseline.txt', 'w')
     for i in range(task_scheduler.max_depth):
         print("Depth%d:"%i)
         placement = final_placement[i]
@@ -164,7 +176,7 @@ if __name__=='__main__':
     # print('----------------------------')
     # final_placement = JobStepBasedBaseline(threshold=6)
     
-    JobStepBasedBaseline(threshold=6)
+    JobStepBasedBaseline(threshold=5)
     
     
     DepthBasedBaseline()

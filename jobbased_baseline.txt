@@ -1,4 +1,3 @@
------Job Step Based Baseline Finish. Final Time:33.358333----
 Step0:
 Task tA1, Execution Time 1, need data: ['A1', 'A2']place in DC[4]
 Task tA2, Execution Time 1, need data: ['A1', 'A2']place in DC[4]
@@ -34,3 +33,5 @@ Task tF7, Execution Time 2, need data: ['F3', 'F5', 'tF5']place in DC[9]
 Task tF8, Execution Time 2, need data: ['F2', 'F5', 'tF5', 'tF6']place in DC[9]
 Step7:
 Task tF9, Execution Time 3, need data: ['F1', 'F3', 'F4', 'F5', 'tF7', 'tF8']place in DC[9]
+-----Job Step Based Baseline Finish. Final Time:33.358333----
+-----Execution Time of Job Based Baseline: 0.861627-------
