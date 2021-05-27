@@ -35,9 +35,9 @@ def DepthBasedBaseline(file_path="../ToyData.xlsx"):
             continue
 
         task_set_new = task_scheduler.get_taskset(cur_depth)  
-        new_data_center = solver.update_datacenter(placement, task_set_new, task_set, data_center)
+        data_center = solver.update_datacenter(placement, task_set_new, task_set, data_center)
 
-        placement, finish_time = solver.get_placement(task_set_new, new_data_center)
+        placement, finish_time = solver.get_placement(task_set_new, data_center)
         final_placement.append(placement)
         time_cost = np.max(finish_time)
         print("time cost:", time_cost)
