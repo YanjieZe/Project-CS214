@@ -12,6 +12,8 @@ def DepthBasedBaseline(file_path="../ToyData.xlsx"):
     """
     Depth Based Baseline, implemented by Yanjie Ze
     """
+    f = open('depthbased_baseline.txt', 'w')
+    f.close()
     start_time = time.time()
     task_scheduler = TaskScheduler(file_path=file_path)
     solver = Solver(file_path=file_path)
@@ -31,6 +33,9 @@ def DepthBasedBaseline(file_path="../ToyData.xlsx"):
             data_center = task_scheduler.get_datacenter()
             placement, finish_time = solver.get_placement(task_set, data_center)
             time_cost = np.max(finish_time)
+            with open('depthbased_baseline.txt', 'a') as f:
+                f.write("depth %d cost time %f\n"%(cur_depth, time_cost))
+                f.close()
             print("time cost:", time_cost)
             final_time += time_cost
             cur_depth += 1
@@ -41,9 +46,13 @@ def DepthBasedBaseline(file_path="../ToyData.xlsx"):
         data_center = solver.update_datacenter(placement, task_set_new, task_set, data_center)
 
         placement, finish_time = solver.get_placement(task_set_new, data_center)
+        
         final_placement.append(placement)
         time_cost = np.max(finish_time)
         print("time cost:", time_cost)
+        with open('depthbased_baseline.txt', 'a') as f:
+            f.write("depth %d cost time %f\n"%(cur_depth, time_cost))
+            f.close()
         final_time += time_cost
         task_set = task_set_new
 
@@ -84,7 +93,8 @@ def JobStepBasedBaseline(file_path="../ToyData.xlsx", threshold=5):
             data_center = task_scheduler.get_datacenter()
             placement, finish_time = solver.get_placement(task_set, data_center)
             time_cost = np.max(finish_time)
-            print("time cost:", time_cost)
+            with open('jobbased_baseline.txt', 'a') as f:
+                f.write("step %d cost time %f\n"%(cur_step, time_cost))
             final_time += time_cost
             cur_step += 1
             final_placement.append(placement)
@@ -95,14 +105,14 @@ def JobStepBasedBaseline(file_path="../ToyData.xlsx", threshold=5):
 
         placement, finish_time = solver.get_placement(task_set_new, new_data_center)
         time_cost = np.max(finish_time)
+        with open('jobbased_baseline.txt', 'a') as f:
+            f.write("step %d cost time %f\n"%(cur_step, time_cost))
         # print("time cost:", time_cost)
         final_time += time_cost
         task_set = task_set_new
         final_placement.append(placement)
         cur_step += 1
-    with open('jobbased_baseline.txt', 'a') as f:
-        f.write("-----Job Step Based Baseline Finish. Final Time:%f----\n"%final_time)
-    f.close()
+    
     print("-----Job Step Based Baseline Finish. Final Time:%f----\n"%final_time)
 
     ## show result
@@ -121,7 +131,7 @@ def final_placement_show_jobbased(final_placement, task_scheduler):
     Input: list of several placements in several step
     Output: show the placement
     """
-    f =  open('jobbased_baseline.txt', 'w')
+    f =  open('jobbased_baseline.txt', 'a')
     for i in range(len(final_placement)):
         f.write("Step%d:\n"%i)
         print("Step%d:"%i)
@@ -148,8 +158,9 @@ def final_placement_show_depthbased(final_placement, task_scheduler):
     Input: list of several placements in several step
     Output: show the placement
     """
-    f =  open('depthbased_baseline.txt', 'w')
+    f =  open('depthbased_baseline.txt', 'a')
     for i in range(task_scheduler.max_depth):
+        f.write("Depth%d:\n"%i)
         print("Depth%d:"%i)
         placement = final_placement[i]
         task_set = task_scheduler.get_taskset(i)
@@ -176,7 +187,7 @@ if __name__=='__main__':
     # print('----------------------------')
     # final_placement = JobStepBasedBaseline(threshold=6)
     
-    JobStepBasedBaseline(threshold=5)
+    #JobStepBasedBaseline(threshold=6)
     
     
     DepthBasedBaseline()

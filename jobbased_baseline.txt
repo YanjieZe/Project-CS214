@@ -34,4 +34,4 @@ Task tF8, Execution Time 2, need data: ['F2', 'F5', 'tF5', 'tF6']place in DC[9]
 Step7:
 Task tF9, Execution Time 3, need data: ['F1', 'F3', 'F4', 'F5', 'tF7', 'tF8']place in DC[9]
 -----Job Step Based Baseline Finish. Final Time:33.358333----
------Execution Time of Job Based Baseline: 0.861627-------
+-----Execution Time of Job Based Baseline: 0.576692-------
