@@ -73,6 +73,8 @@ def JobStepBasedBaseline(file_path="../ToyData.xlsx", threshold=5):
     """
     Job Step Based Baseline, implemented by Yanjie Ze
     """
+    f = open('jobbased_baseline.txt', 'w')
+    f.close()
     start_time = time.time()
     print('Job Step Based Baseline, threshold = %d '%threshold)
     task_scheduler = TaskScheduler(file_path=file_path, threshold=threshold)
@@ -95,6 +97,7 @@ def JobStepBasedBaseline(file_path="../ToyData.xlsx", threshold=5):
             time_cost = np.max(finish_time)
             with open('jobbased_baseline.txt', 'a') as f:
                 f.write("step %d cost time %f\n"%(cur_step, time_cost))
+                f.close()
             final_time += time_cost
             cur_step += 1
             final_placement.append(placement)
@@ -187,7 +190,7 @@ if __name__=='__main__':
     # print('----------------------------')
     # final_placement = JobStepBasedBaseline(threshold=6)
     
-    #JobStepBasedBaseline(threshold=6)
+    JobStepBasedBaseline(threshold=6)
     
     
-    DepthBasedBaseline()
+    #DepthBasedBaseline()
