@@ -2,8 +2,10 @@
 Yanjie Ze, May 2021
 
 # 1 Basic Information
-这是CS214:算法与复杂性（英文班）的Final Project。
-授课老师：高晓沨教授，王磊副教授
+This is Final Project for CS214: Algortihm and Complexity.
+Teacher: Prof.Xiaofeng Gao, Prof.Lei Wang.
+
+Our Teammates: Yanjie Ze(Program), Qi Liu(Model), Renyang Guang(Writing)
 
 # 2 Usage
 ```shell
@@ -23,12 +25,6 @@ Optimal Solution.
 This section we introduce some distinguishing Feature in our **Python** implementation.
 1. **Automatic Data Loader**: Different from other teams who **modify the toy data's form** into other forms like **.txt**, we use python to directly load the toy data, which means that **the whole process is automatic** and can be exectued without any human's handcraft modification.
 2. **Automatic Linear Programming**: Supported by the python package **pulp**, we can make the process of LP as the undivided part.
-
-
-
-# 5 Final Results
-
-
 
 
 
