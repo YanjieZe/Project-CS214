@@ -23,7 +23,17 @@ Optimal Solution.
 This section we introduce some distinguishing Feature in our **Python** implementation.
 1. **Automatic Data Loader**: Different from other teams who **modify the toy data's form** into other forms like **.txt**, we use python to directly load the toy data, which means that **the whole process is automatic** and can be exectued without any human's handcraft modification.
 2. **Automatic Linear Programming**: Supported by the python package **pulp**, we can make the process of LP as the undivided part.
-3. 
+
+
+
+# 5 Final Results
+
+
+
+
+
+
+
 # Last: Coding命名规范
 1. class名字统一大写开头，如DataLoader。
 2. 变量名用小写单词加下划线，如data_loader。
